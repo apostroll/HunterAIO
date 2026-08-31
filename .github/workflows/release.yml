@@ -31,7 +31,7 @@ jobs:
         id: bump
         run: |
           # Calculate next tag based on conventional commits and cliff.toml
-          NEXT_TAG=$(git cliff --bumped-version 2>/dev/null || true)
+          NEXT_TAG=$(git-cliff --bumped-version 2>/dev/null || true)
           if [ -z "$NEXT_TAG" ]; then
             NEXT_TAG="v1.0.0"
           fi
@@ -43,7 +43,7 @@ jobs:
           NEXT_TAG: ${{ steps.bump.outputs.tag }}
         run: |
           # Generate release notes for this specific tag
-          git cliff --unreleased --tag "$NEXT_TAG" --output RELEASE_NOTES.md
+          git-cliff --unreleased --tag "$NEXT_TAG" --output RELEASE_NOTES.md
           cat RELEASE_NOTES.md
 
       - name: Package AddOn Archive (HunterAIO.zip)
