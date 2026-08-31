@@ -4,6 +4,29 @@
 
 ---
 
+## Installation
+
+1. **Download**:
+   Download [**HunterAIO.zip**](https://github.com/apostroll/HunterAIO/releases/latest/download/HunterAIO.zip) from the [Latest Release](https://github.com/apostroll/HunterAIO/releases/latest) page.
+2. **Extract**:
+   Extract the `.zip` archive into your World of Warcraft AddOns directory:
+   ```text
+   <World of Warcraft>/Interface/AddOns/
+   ```
+3. **Verify Path**:
+   Confirm that the addon files are located at:
+   ```text
+   <World of Warcraft>/Interface/AddOns/HunterAIO/
+   ├── Bindings.xml
+   ├── HunterAIO.lua
+   ├── HunterAIO.toc
+   └── README.md
+   ```
+4. **Enable & Configure**:
+   Launch WoW. On the Character Selection screen, click **AddOns** in the bottom-left and ensure **HunterAIO** is checked (enable *"Load out of date AddOns"* if prompted). Type **`/haio`** in-game to open the Control Panel.
+
+---
+
 ## Features & Modules
 
 ### 1. PetCare (Smart Pet Lifecycle Management)
