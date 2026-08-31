@@ -1,5 +1,13 @@
-# Exclude development files from releases / archives
+# Exclude development files and media from releases / archives
 .github export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
 cliff.toml export-ignore
+screenshots export-ignore
+images export-ignore
+assets export-ignore
+*.png export-ignore
+*.jpg export-ignore
+*.jpeg export-ignore
+*.gif export-ignore
+*.mp4 export-ignore

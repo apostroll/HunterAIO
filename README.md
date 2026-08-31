@@ -95,3 +95,21 @@ Go to **Game Menu $\rightarrow$ Key Bindings $\rightarrow$ HunterAIO** to bind:
 * **Open Ring 2 (Professions & Gathering)**
 * **Open Ring 3 (Aspects & Utility)**
 * **Smart Traps** (Freezing, Frost, Immolation, Explosive)
+
+---
+
+## Screenshots & Preview
+
+### In-Game UI
+| RingMenu (`CTRL-D`) | AutoShot Swing Bar |
+| :---: | :---: |
+| ![RingMenu](screenshots/ringmenu.jpg) | ![AutoShot Bar](screenshots/autoshot.jpg) |
+
+### Control Panel (`/haio`)
+| Tab 1: PetCare | Tab 2: SmartTrap |
+| :---: | :---: |
+| ![PetCare Panel](screenshots/panel_tab1.jpg) | ![SmartTrap Panel](screenshots/panel_tab2.jpg) |
+
+| Tab 3: AutoShotTimer | Tab 4: RingMenu |
+| :---: | :---: |
+| ![AutoShot Panel](screenshots/panel_tab3.jpg) | ![RingMenu Panel](screenshots/panel_tab4.jpg) |

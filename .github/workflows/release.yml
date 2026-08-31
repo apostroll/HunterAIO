@@ -5,6 +5,18 @@ on:
     branches:
       - master
       - main
+    paths-ignore:
+      - 'README.md'
+      - 'screenshots/**'
+      - 'images/**'
+      - 'assets/**'
+      - 'docs/**'
+      - '*.png'
+      - '*.jpg'
+      - '*.jpeg'
+      - '*.gif'
+      - '.gitattributes'
+      - '.gitignore'
 
 concurrency:
   group: release-${{ github.ref }}
