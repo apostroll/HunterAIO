@@ -1,0 +1,8 @@
+## Interface: 11200
+## Title: HunterAIO
+## Notes: All-in-One Hunter Suite: AutoShotTimer, RingMenu, SmartTrap & PetCare (/haio)
+## Author: Hardas
+## Version: 1.0
+## SavedVariablesPerCharacter: HunterAIODB
+Bindings.xml
+HunterAIO.lua

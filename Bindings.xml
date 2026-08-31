@@ -1,0 +1,72 @@
+<Bindings>
+	<Binding name="HUNTERAIO_RING1" header="HUNTERAIO_HEADER" runOnUp="true">
+		if keystate == "down" then
+			HunterAIO_RingMenu_Toggle(1)
+		else
+			HunterAIO_RingMenu_OnKeyUp(1)
+		end
+	</Binding>
+	<Binding name="HUNTERAIO_RING2" runOnUp="true">
+		if keystate == "down" then
+			HunterAIO_RingMenu_Toggle(2)
+		else
+			HunterAIO_RingMenu_OnKeyUp(2)
+		end
+	</Binding>
+	<Binding name="HUNTERAIO_RING3" runOnUp="true">
+		if keystate == "down" then
+			HunterAIO_RingMenu_Toggle(3)
+		else
+			HunterAIO_RingMenu_OnKeyUp(3)
+		end
+	</Binding>
+
+	<!-- Backward Compatibility Aliases for Standalone RingMenu Bindings -->
+	<Binding name="RINGMENU_RING1" runOnUp="true">
+		if keystate == "down" then
+			HunterAIO_RingMenu_Toggle(1)
+		else
+			HunterAIO_RingMenu_OnKeyUp(1)
+		end
+	</Binding>
+	<Binding name="RINGMENU_RING2" runOnUp="true">
+		if keystate == "down" then
+			HunterAIO_RingMenu_Toggle(2)
+		else
+			HunterAIO_RingMenu_OnKeyUp(2)
+		end
+	</Binding>
+	<Binding name="RINGMENU_RING3" runOnUp="true">
+		if keystate == "down" then
+			HunterAIO_RingMenu_Toggle(3)
+		else
+			HunterAIO_RingMenu_OnKeyUp(3)
+		end
+	</Binding>
+
+	<!-- SmartTrap Bindings -->
+	<Binding name="HUNTERAIO_SMARTTRAP_FREEZING" runOnUp="false">
+		SmartTrap("Freezing Trap")
+	</Binding>
+	<Binding name="HUNTERAIO_SMARTTRAP_FROST" runOnUp="false">
+		SmartTrap("Frost Trap")
+	</Binding>
+	<Binding name="HUNTERAIO_SMARTTRAP_IMMOLATION" runOnUp="false">
+		SmartTrap("Immolation Trap")
+	</Binding>
+	<Binding name="HUNTERAIO_SMARTTRAP_EXPLOSIVE" runOnUp="false">
+		SmartTrap("Explosive Trap")
+	</Binding>
+	<Binding name="SMARTTRAP_FREEZING" runOnUp="false">
+		SmartTrap("Freezing Trap")
+	</Binding>
+	<Binding name="SMARTTRAP_FROST" runOnUp="false">
+		SmartTrap("Frost Trap")
+	</Binding>
+	<Binding name="SMARTTRAP_IMMOLATION" runOnUp="false">
+		SmartTrap("Immolation Trap")
+	</Binding>
+	<Binding name="SMARTTRAP_EXPLOSIVE" runOnUp="false">
+		SmartTrap("Explosive Trap")
+	</Binding>
+</Bindings>
