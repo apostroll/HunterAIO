@@ -1,0 +1,5 @@
+# Exclude development files from releases / archives
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+cliff.toml export-ignore

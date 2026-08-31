@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install git-cliff
+        uses: orhun/git-cliff-action@v4
+        with:
+          only-install: true
+
+      - name: Determine Next Semantic Version Tag
+        id: bump
+        run: |
+          # Calculate next tag based on conventional commits and cliff.toml
+          NEXT_TAG=$(git cliff --bumped-version 2>/dev/null || true)
+          if [ -z "$NEXT_TAG" ]; then
+            NEXT_TAG="v1.0.0"
+          fi
+          echo "tag=$NEXT_TAG" >> $GITHUB_OUTPUT
+          echo "Computed release tag: $NEXT_TAG"
+
+      - name: Generate Changelog Release Notes
+        env:
+          NEXT_TAG: ${{ steps.bump.outputs.tag }}
+        run: |
+          # Generate release notes for this specific tag
+          git cliff --unreleased --tag "$NEXT_TAG" --output RELEASE_NOTES.md
+          cat RELEASE_NOTES.md
+
+      - name: Package AddOn Archive (HunterAIO.zip)
+        run: |
+          # Package the addon under the root HunterAIO/ folder
+          mkdir -p dist/HunterAIO
+          cp -r Bindings.xml HunterAIO.lua HunterAIO.toc README.md dist/HunterAIO/
+          cd dist
+          zip -r ../HunterAIO.zip HunterAIO
+          cd ..
+          echo "Created HunterAIO.zip archive"
+          unzip -l HunterAIO.zip
+
+      - name: Create and Push Git Tag
+        env:
+          TAG: ${{ steps.bump.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "$TAG"
+          else
+            echo "Tag $TAG already exists."
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.bump.outputs.tag }}
+          name: HunterAIO ${{ steps.bump.outputs.tag }}
+          body_path: RELEASE_NOTES.md
+          files: HunterAIO.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
