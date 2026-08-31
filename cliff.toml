@@ -22,6 +22,9 @@ body = """
 """
 trim = true
 
+[bump]
+initial_tag = "v1.0.0"
+
 [git]
 conventional_commits = true
 filter_unconventional = false
@@ -37,10 +40,11 @@ commit_parsers = [
     { message = "^chore\\(release\\)", skip = true },
     { message = "^chore\\(deps\\)", group = "<!-- 7 -->Dependencies" },
     { message = "^chore", group = "<!-- 8 -->Miscellaneous Tasks" },
+    { message = "^ci", group = "<!-- 8 -->Continuous Integration" },
     { body = ".*security", group = "<!-- 9 -->Security" },
 ]
 protect_breaking_commits = false
 filter_commits = false
-tag_pattern = "v[0-9].*"
+tag_pattern = "v?[0-9].*"
 topo_order = false
 sort_commits = "oldest"
