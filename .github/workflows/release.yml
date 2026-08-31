@@ -22,33 +22,35 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install git-cliff
+      - name: Generate Changelog with git-cliff
         uses: orhun/git-cliff-action@v4
+        id: git-cliff
         with:
-          only-install: true
-
-      - name: Determine Next Semantic Version Tag
-        id: bump
-        run: |
-          # Calculate next tag based on conventional commits and cliff.toml
-          NEXT_TAG=$(git-cliff --bumped-version 2>/dev/null || true)
-          if [ -z "$NEXT_TAG" ]; then
-            NEXT_TAG="v1.0.0"
-          fi
-          echo "tag=$NEXT_TAG" >> $GITHUB_OUTPUT
-          echo "Computed release tag: $NEXT_TAG"
-
-      - name: Generate Changelog Release Notes
+          config: cliff.toml
+          args: --verbose --bump
         env:
-          NEXT_TAG: ${{ steps.bump.outputs.tag }}
+          OUTPUT: RELEASE_NOTES.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Set Release Tag Output
+        id: vars
         run: |
-          # Generate release notes for this specific tag
-          git-cliff --unreleased --tag "$NEXT_TAG" --output RELEASE_NOTES.md
-          cat RELEASE_NOTES.md
+          RAW_VER="${{ steps.git-cliff.outputs.version }}"
+          if [ -z "$RAW_VER" ]; then
+            TAG="v1.0.0"
+          elif [[ "$RAW_VER" == v* ]]; then
+            TAG="$RAW_VER"
+          else
+            TAG="v$RAW_VER"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Release tag: $TAG"
+          if [ -f RELEASE_NOTES.md ]; then
+            cat RELEASE_NOTES.md
+          fi
 
       - name: Package AddOn Archive (HunterAIO.zip)
         run: |
-          # Package the addon under the root HunterAIO/ folder
           mkdir -p dist/HunterAIO
           cp -r Bindings.xml HunterAIO.lua HunterAIO.toc README.md dist/HunterAIO/
           cd dist
@@ -59,7 +61,7 @@ jobs:
 
       - name: Create and Push Git Tag
         env:
-          TAG: ${{ steps.bump.outputs.tag }}
+          TAG: ${{ steps.vars.outputs.tag }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -73,8 +75,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ steps.bump.outputs.tag }}
-          name: HunterAIO ${{ steps.bump.outputs.tag }}
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: HunterAIO ${{ steps.vars.outputs.tag }}
           body_path: RELEASE_NOTES.md
           files: HunterAIO.zip
         env:
